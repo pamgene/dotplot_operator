@@ -1,0 +1,66 @@
+{
+  "name": "Dot Plot",
+  "description": "Dot Plot intended for Upstream Kinase Analysis results",
+  "tags": ["Knowledge Integration"],
+  "authors": ["PamGene"],
+  "urls": ["https://github.com/pamgene/dotplot_operator"],
+  "properties": [
+       {
+      "kind": "DoubleProperty",
+      "name": "ColorLowerLimit",
+      "defaultValue": -0.5,
+      "description": "Lower limit for the color scale of the dots"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "ColorUpperLimit",
+      "defaultValue": 0.5,
+      "description": "Upper limit for the color scale of the dots"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "SizeLowerLimit",
+      "defaultValue": 0,
+      "description": "Lower limit for the size scale of the dots"
+    },
+        {
+      "kind": "DoubleProperty",
+      "name": "SizeUpperLimit",
+      "defaultValue": 2,
+      "description": "Upper limit for the size scale of the dots"
+    },
+    {
+      "kind": "EnumeratedProperty",
+      "name": "Layout",
+      "defaultValue": "PTK",
+      "description": "Layout of the panels in the dotplot",
+      "values": ["Horizontal", "Vertical", "Wrap"]
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "PlotSize",
+      "defaultValue": 12,
+      "description": "Long side length of the plot"
+    }, 
+    {
+      "kind": "DoubleProperty",
+      "name": "LabelFontSize",
+      "defaultValue": 6,
+      "description": "Font size for axis labels"
+    },
+    {
+      "kind": "StringProperty",
+      "name": "SizeLegendName",
+      "defaultValue": "Specificity",
+      "description": "Title for size legend"
+    },
+    {
+      "kind": "StringProperty",
+      "name": "ColorLegendName",
+      "defaultValue": "Change",
+      "description": "Title for color legend"
+    }
+  ]
+}
+
+
