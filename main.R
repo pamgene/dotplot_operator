@@ -91,7 +91,7 @@ if(layout == "Horizontal"){
     facet_grid(.~panels, scales = "free_x", space = "free_x") 
   vp = viewport(width = unit(pheight, "in"), height = unit(stripwidth(df), "in"))
   p = print(pdp, vp = vp)
-  plot_file <- tim::save_plot(p, width = pheight, height = stripwidth(df), dpi = 300)
+  plot_file <- tim::save_plot(pdp, width = pheight, height = stripwidth(df), dpi = 300)
 } else if(layout == "Vertical"){
   w = stripwidth(df) + .5
   pdp = pdp + 
