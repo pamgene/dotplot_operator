@@ -80,7 +80,7 @@ pdp =  df %>%
          .y = rescale(.y, to = slims, clip = TRUE)) %>% 
   dots(clims, slims)
 
-grid.newpage()
+#grid.newpage()
 if(layout == "Horizontal"){
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
