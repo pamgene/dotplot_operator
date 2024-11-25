@@ -89,7 +89,13 @@ pdp = pdp +
   facet_grid(.~panels, scales = "free_x", space = "free_x") 
 #vp = viewport(width = unit(pheight, "in"), height = unit(stripwidth(df), "in"))
 #p = print(pdp, vp = vp)
-plot_file <- tim::save_plot(pdp, width = pheight, height = 2*stripwidth(df), dpi = 300, units  = "in")
+plot_file <- tim::save_plot(pdp, 
+                            width = pheight, 
+                            height = stripwidth(df), 
+                            dpi = 300, 
+                            units  = "in",  
+                            type = "png",
+                            bg = "white")
 
 df_plot <- tim::plot_file_to_df(plot_file) %>%
   mutate(.ci = 0L, .ri = 0L) %>%
