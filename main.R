@@ -87,14 +87,12 @@ pdp = pdp +
         legend.direction = "horizontal", 
         legend.position = "bottom") +
   facet_grid(.~panels, scales = "free_x", space = "free_x") 
-#vp = viewport(width = unit(pheight, "in"), height = unit(stripwidth(df), "in"))
-#p = print(pdp, vp = vp)
-plot_file <- tim::save_plot(pdp, 
+p = print(pdp)
+plot_file <- tim::save_plot(p, 
                             width = pheight, 
                             height = stripwidth(df), 
-                            dpi = 300, 
+                            device = "png",
                             units  = "in",  
-                            type = "png",
                             bg = "white")
 
 df_plot <- tim::plot_file_to_df(plot_file) %>%
