@@ -48,7 +48,7 @@ dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2)){
     geom_point() + 
     xlab("")  +
     ylab("") + 
-    scale_colour_gradient2(low = "darkblue", high = "darkred",limits = clrLimits) + 
+    scale_colour_gradient2(low = "darkblue", high = "darkgreen",limits = clrLimits) + 
     scale_size_continuous(limits = szLimits,  range = c(0,4)) + 
     theme_minimal() +
     guides(colour = guide_colorbar(title =cltitle ), 
@@ -101,4 +101,7 @@ df_plot <- tim::plot_file_to_df(plot_file) %>%
   mutate(.ci = 0L, .ri = 0L) %>%
   ctx$addNamespace()
 
-ctx$save(list(df_plot))
+df_table = data.frame(.ci = 0L, .ri = 0L, r = 0) %>% 
+  ctx$addNamespace()
+
+ctx$save(list(df_table, df_plot))
