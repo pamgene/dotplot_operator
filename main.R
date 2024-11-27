@@ -70,7 +70,7 @@ lsize   = ctx$op.value("LabelFontSize", as.numeric, 6)
 clims   = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorLowerLimit", as.numeric, 0.5))
 slims   = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
 pheight = ctx$op.value("PlotSize", as.numeric, 12)
-cltitle = ctx$op.value("ColorLegendName", as.character, "Change")
+cltitle = ctx$op.value("ColorLegendName", as.character, "Down-Up")
 sltitle = ctx$op.value("Size LegendName", as.character, "Specificty")
 
 df = ctx %>% 
@@ -89,18 +89,16 @@ pdp = pdp +
         legend.position = "bottom") +
   facet_grid(.~panels, scales = "free_x", space = "free_x") 
 
-df_plot <- tim::save_plot(pdp, 
+plot_file <- tim::save_plot(pdp, 
                             width = pheight, 
                             height = stripwidth(df), 
                             type = "png",
                             units  = "in",  
-                            bg = "white") %>% 
-  tim::plot_file_to_df() %>%
-  mutate(.ci = 0L, .ri = 0L) %>%
-  ctx$addNamespace()
+                            bg = "white")
 
-# dummy result for now ....
-df_table = data.frame(.ci = 0L, .ri = 0L, r = 0) %>% 
-  ctx$addNamespace()
+file_to_tercen(plot_file) %>% 
+  as_relation() %>%
+  as_join_operator(list(), list()) %>%
+  save_relation(ctx)
 
-ctx$save(list(df_table, df_plot))
+
