@@ -3,7 +3,6 @@ library(dplyr)
 library(ggplot2)
 library(pgscales)
 library(tim)
-#library(grid)
 
 ctx = tercenCtx()
 
@@ -36,7 +35,7 @@ getData = function(con){
   df %>% 
     bind_cols(clrVal) %>% 
     left_join(paneldf, by = ".ri") %>% 
-    left_join(supergdf, by = ".ci")
+    left_join(supergdf,by = ".ci")
 }
 
 dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2)){
@@ -50,28 +49,30 @@ dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2)){
     ylab("") + 
     scale_colour_gradient2(low = "darkblue", high = "darkgreen",limits = clrLimits) + 
     scale_size_continuous(limits = szLimits,  range = c(0,4)) + 
-    theme_minimal() +
+    # theme_minimal() +
     guides(colour = guide_colorbar(title =cltitle ), 
            size = guide_legend(title = sltitle) )+ 
     theme(legend.title = element_text(size = lsize),
           legend.text = element_text(size = lsize)) 
 }
+
 stripwidth = function(x, bw = 1){
-   nsg = x %>% 
+  nsg = x %>% 
     pull(superg) %>% 
     unique() %>% 
     length()
-   
-   bw + bw*nsg
+  
+  bw + bw*nsg
 }
-layout = ctx$op.value("Layout", as.character, "Wrap") 
-lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
-clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorLowerLimit", as.numeric, 0.5))
-slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
+
+layout  = ctx$op.value("Layout", as.character, "Horizontal") 
+lsize   = ctx$op.value("LabelFontSize", as.numeric, 6)
+clims   = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorLowerLimit", as.numeric, 0.5))
+slims   = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
 pheight = ctx$op.value("PlotSize", as.numeric, 12)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Change")
 sltitle = ctx$op.value("Size LegendName", as.character, "Specificty")
-            
+
 df = ctx %>% 
   getData()
 
@@ -87,18 +88,18 @@ pdp = pdp +
         legend.direction = "horizontal", 
         legend.position = "bottom") +
   facet_grid(.~panels, scales = "free_x", space = "free_x") 
-p = print(pdp)
-plot_file <- tim::save_plot(p, 
+
+df_plot <- tim::save_plot(pdp, 
                             width = pheight, 
                             height = stripwidth(df), 
-                            device = "png",
+                            type = "png",
                             units  = "in",  
-                            bg = "white")
-
-df_plot <- tim::plot_file_to_df(plot_file) %>%
+                            bg = "white") %>% 
+  tim::plot_file_to_df() %>%
   mutate(.ci = 0L, .ri = 0L) %>%
   ctx$addNamespace()
 
+# dummy result for now ....
 df_table = data.frame(.ci = 0L, .ri = 0L, r = 0) %>% 
   ctx$addNamespace()
 
