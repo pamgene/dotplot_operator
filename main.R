@@ -3,7 +3,6 @@ library(dplyr)
 library(ggplot2)
 library(pgscales)
 library(tim)
-library(grid)
 
 ctx = tercenCtx()
 
@@ -64,9 +63,10 @@ stripwidth = function(x, bw = 1){
    
    bw + bw*nsg
 }
+
 layout = ctx$op.value("Layout", as.character, "Wrap") 
 lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
-clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorLowerLimit", as.numeric, 0.5))
+clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
 slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Change")
@@ -77,10 +77,10 @@ df = ctx %>%
 
 pdp =  df %>% 
   mutate(clrVal = rescale(clrVal, to = clims, clip = TRUE),
-         .y = rescale(.y, to = slims, clip = TRUE)) %>% 
+           .y = rescale(.y, to = slims, clip = TRUE)) %>% 
   dots(clims, slims)
 
-#grid.newpage()
+
 if(layout == "Horizontal"){
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
@@ -89,9 +89,7 @@ if(layout == "Horizontal"){
           legend.direction = "horizontal", 
           legend.position = "bottom") +
     facet_grid(.~panels, scales = "free_x", space = "free_x") 
-  vp = viewport(width = unit(pheight, "in"), height = unit(stripwidth(df), "in"))
-  p = print(pdp, vp = vp)
-  plot_file <- tim::save_plot(p, width = pheight, height = stripwidth(df), dpi = 300)
+  plot_file <- tim::save_plot(pdp, width = pheight, bg = "white")
 } else if(layout == "Vertical"){
   w = stripwidth(df) + .5
   pdp = pdp + 
@@ -100,22 +98,17 @@ if(layout == "Horizontal"){
     coord_flip() +
     facet_grid(panels~., scales = "free_y", space = "free") +
     theme(strip.text.y = element_text(angle = 0, face= "bold", size = lsize)) 
-  vp = viewport(height = unit(pheight, "in"), width = unit(w, "in"))
-  p = print(pdp, vp = vp)
-  plot_file <- tim::save_plot(p, height = pheight, width = w, dpi = 300)
+  plot_file <- tim::save_plot(pdp, height = pheight, width = w, bg = "white")
 } else if(layout == "Wrap"){
   pdp = pdp + 
     facet_wrap(~panels, scales = "free_x") +
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
           axis.text.y = element_text(size = lsize),
           strip.text.x = element_text(face= "bold")) 
-  vp = viewport(height = unit(pheight, "in"), width = unit(pheight, "in"))
-  p = print(pdp, vp = vp)
-  plot_file <- tim::save_plot(p, dpi = 300, height = pheight, width = pheight)
+  plot_file <- tim::save_plot(pdp, bg = "white")
 }
 
-df_plot <- tim::plot_file_to_df(plot_file) %>%
-  mutate(.ci = 0L, .ri = 0L) %>%
-  ctx$addNamespace()
-
-ctx$save(list(df_plot))
+file_to_tercen(plot_file) %>% 
+  as_relation() %>%
+  as_join_operator(list(), list()) %>%
+  save_relation(ctx)
