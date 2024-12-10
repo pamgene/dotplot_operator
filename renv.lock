@@ -354,7 +354,8 @@
     "mtercen": {
       "Package": "mtercen",
       "Version": "1.0.8",
-      "Source": "unknown",
+      "Source": "Repository",
+      "Repository": "TERCEN",
       "Hash": "27b03b2685b9424f08521ea09d24860e"
     },
     "munsell": {
@@ -523,13 +524,15 @@
     "teRcenHttp": {
       "Package": "teRcenHttp",
       "Version": "1.0.21",
-      "Source": "unknown",
+      "Source": "Repository",
+      "Repository": "TERCEN",
       "Hash": "18e6c920fb7ddb33ea4e265098ca24c9"
     },
     "tercen": {
       "Package": "tercen",
       "Version": "0.13.7",
-      "Source": "unknown",
+      "Source": "Repository",
+      "Repository": "TERCEN",
       "Requirements": [
         "R6",
         "base64enc",

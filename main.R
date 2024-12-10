@@ -108,7 +108,9 @@ if(layout == "Horizontal"){
   plot_file <- tim::save_plot(pdp, bg = "white")
 }
 
-file_to_tercen(plot_file) %>% 
+tercen.file = file_to_tercen(plot_file)
+
+tercen.file %>% 
   as_relation() %>%
   as_join_operator(list(), list()) %>%
   save_relation(ctx)
