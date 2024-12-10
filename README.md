@@ -8,6 +8,7 @@ Operator for creating a paneled dot plot, intended for the visualization of `Ups
 ##### Usage
 
 
+
 Input projection|.
 ---|---
 `y-axis` | values to map to the size of the dots, typicaly `Specificity Score`.
@@ -15,6 +16,7 @@ Input projection|.
 `x-axis` | label for individual dots, typicaly `Kinase_Name`
 `rows` | Each row is mapped to a panel, typicaly `Kinase_Family`
 `columns`| optional, each column is mapped to a supergroup
+
 
 
 Input parameters|.
@@ -29,11 +31,13 @@ SizeLegendName|Title for the size legend
 ColorLegendName|Title for teh color legend
 
 
+
 Output relations|.
 ---|---
 Output table | a dot plot (png file)
 
-
+#### Example
+https://bionavigator.pamgene.com/Rik/p/a775886f2d6fc251035df4c069050b27
 
 
 
