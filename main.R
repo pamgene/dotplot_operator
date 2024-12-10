@@ -80,8 +80,10 @@ pdp =  df %>%
            .y = rescale(.y, to = slims, clip = TRUE)) %>% 
   dots(clims, slims)
 
+warning(layout)
 
-if(TRUE){
+if(grepl("Horizontal", layout)){
+  h = stripwidth(df)
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
           axis.text.y = element_text(size = lsize),
@@ -89,8 +91,8 @@ if(TRUE){
           legend.direction = "horizontal", 
           legend.position = "bottom") +
     facet_grid(.~panels, scales = "free_x", space = "free_x") 
-  plot_file <- tim::save_plot(pdp, width = pheight, bg = "white")
-} else if(layout == "Vertical"){
+  plot_file <- tim::save_plot(pdp, width = pheight,height = h, bg = "white")
+} else if(grepl("Vertical", layout)){
   w = stripwidth(df) + .5
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
@@ -99,7 +101,7 @@ if(TRUE){
     facet_grid(panels~., scales = "free_y", space = "free") +
     theme(strip.text.y = element_text(angle = 0, face= "bold", size = lsize)) 
   plot_file <- tim::save_plot(pdp, height = pheight, width = w, bg = "white")
-} else if(layout == "Wrap"){
+} else if(grepl("Wrap", layout)){
   pdp = pdp + 
     facet_wrap(~panels, scales = "free_x") +
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
