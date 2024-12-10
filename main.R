@@ -64,7 +64,7 @@ stripwidth = function(x, bw = 1){
    bw + bw*nsg
 }
 
-layout = ctx$op.value("Layout", as.character, "Wrap") 
+layout = ctx$op.value("Layout", as.character, "Horizontal") 
 lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
 clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
 slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
