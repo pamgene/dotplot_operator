@@ -81,7 +81,7 @@ pdp =  df %>%
   dots(clims, slims)
 
 
-if(layout == "Horizontal"){
+if(TRUE){
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
           axis.text.y = element_text(size = lsize),
