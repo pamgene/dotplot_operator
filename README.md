@@ -18,6 +18,7 @@ Input projection|.
 
 
 Input parameters|.
+---|---
 ColorLowerLimit|Lower limit for color scale of the dots(default: -0.5)
 ColorUpperLimit|Upper limit for color scale of the dots (default: 0.5)
 SizeLowerLimit|Lower limit for size scale of the dots (default: 0)
