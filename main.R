@@ -80,8 +80,6 @@ pdp =  df %>%
            .y = rescale(.y, to = slims, clip = TRUE)) %>% 
   dots(clims, slims)
 
-warning(layout)
-
 if(grepl("Horizontal", layout)){
   h = stripwidth(df)
   pdp = pdp + 
@@ -110,9 +108,7 @@ if(grepl("Horizontal", layout)){
   plot_file <- tim::save_plot(pdp, bg = "white")
 }
 
-tercen.file = file_to_tercen(plot_file)
-
-tercen.file %>% 
+file_to_tercen(plot_file) %>% 
   as_relation() %>%
   as_join_operator(list(), list()) %>%
   save_relation(ctx)
