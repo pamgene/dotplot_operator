@@ -23,8 +23,10 @@ Input parameters|.
 ---|---
 ColorLowerLimit|Lower limit for color scale of the dots(default: -0.5)
 ColorUpperLimit|Upper limit for color scale of the dots (default: 0.5)
-SizeLowerLimit|Lower limit for size scale of the dots (default: 0)
-SizeUpperLimit|Upper limit for size scale of the dots(default: 2)
+SizeLowerLimit|Lower limit for mapping to the size scale of the dots (default: 0)
+SizeUpperLimit|Upper limit for mapping to the size scale of the dots(default: 2)
+MinDotSize|Minimum dot size (SizeLowerLimit is mapped to this value, default: 0)
+MaxDotSize|Maximum dot size (SizeUpperLimit is mapped to this value, default 6)
 PlotSize|Size of longer plot size
 LabelFontSize|Font size for axis labels
 SizeLegendName|Title for the size legend
