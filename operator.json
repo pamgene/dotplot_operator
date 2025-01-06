@@ -9,25 +9,37 @@
       "kind": "DoubleProperty",
       "name": "ColorLowerLimit",
       "defaultValue": -0.5,
-      "description": "Lower limit for the color scale of the dots"
+      "description": "Lower limit for mapping to the color scale of the dots"
     },
     {
       "kind": "DoubleProperty",
       "name": "ColorUpperLimit",
       "defaultValue": 0.5,
-      "description": "Upper limit for the color scale of the dots"
+      "description": "Upper limit for mapping to the color scale of the dots"
     },
     {
       "kind": "DoubleProperty",
       "name": "SizeLowerLimit",
       "defaultValue": 0,
-      "description": "Lower limit for the size scale of the dots"
+      "description": "Lower limit for mapping to the size scale of the dots"
     },
-        {
+    {
       "kind": "DoubleProperty",
       "name": "SizeUpperLimit",
       "defaultValue": 2,
-      "description": "Upper limit for the size scale of the dots"
+      "description": "Upper limit for mapping to the size scale of the dots"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "MinDotSize",
+      "defaultValue": 0,
+      "description": "Upper limit for mapping to the size scale of the dots"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "MaxDotSize",
+      "defaultValue": 6,
+      "description": "Maximum dot size"
     },
     {
       "kind": "EnumeratedProperty",

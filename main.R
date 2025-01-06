@@ -38,7 +38,7 @@ getData = function(con){
     left_join(supergdf, by = ".ci")
 }
 
-dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2)){
+dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6)){
   x %>% 
     ggplot(aes(x = .x, 
                y = superg, 
@@ -48,7 +48,7 @@ dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2)){
     xlab("")  +
     ylab("") + 
     scale_colour_gradient2(low = "darkblue", high = "darkred",limits = clrLimits) + 
-    scale_size_continuous(limits = szLimits,  range = c(0,4)) + 
+    scale_size_continuous(limits = szLimits,  range = szRange) + 
     theme_minimal() +
     guides(colour = guide_colorbar(title =cltitle ), 
            size = guide_legend(title = sltitle) )+ 
@@ -68,6 +68,7 @@ layout = ctx$op.value("Layout", as.character, "Horizontal")
 lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
 clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
 slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
+dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDotSize", as.numeric, 4))
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Change")
 sltitle = ctx$op.value("Size LegendName", as.character, "Specificty")
@@ -78,7 +79,7 @@ df = ctx %>%
 pdp =  df %>% 
   mutate(clrVal = rescale(clrVal, to = clims, clip = TRUE),
            .y = rescale(.y, to = slims, clip = TRUE)) %>% 
-  dots(clims, slims)
+  dots(clims, slims, dotSizeRange)
 
 if(grepl("Horizontal", layout)){
   h = stripwidth(df)
