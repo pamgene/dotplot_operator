@@ -35,7 +35,8 @@ getData = function(con){
   df %>% 
     bind_cols(clrVal) %>% 
     left_join(paneldf, by = ".ri") %>% 
-    left_join(supergdf, by = ".ci")
+    left_join(supergdf, by = ".ci") %>%
+    arrange(.ci) # Arrange by .ci
 }
 
 dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6)){
@@ -70,15 +71,15 @@ clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("Color
 slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
 dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDotSize", as.numeric, 4))
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
-cltitle = ctx$op.value("ColorLegendName", as.character, "Change")
-sltitle = ctx$op.value("Size LegendName", as.character, "Specificty")
+cltitle = ctx$op.value("ColorLegendName", as.character, "Fold Change")
+sltitle = ctx$op.value("Size LegendName", as.character, "Specificity")
             
 df = ctx %>% 
   getData()
 
-pdp =  df %>% 
-  mutate(clrVal = rescale(clrVal, to = clims, clip = TRUE),
-           .y = rescale(.y, to = slims, clip = TRUE)) %>% 
+pdp =  df %>%
+  # mutate(clrVal = rescale(clrVal, to = clims, clip = TRUE),
+  #          .y = rescale(.y, to = slims, clip = TRUE)) %>% 
   dots(clims, slims, dotSizeRange)
 
 if(grepl("Horizontal", layout)){
@@ -86,7 +87,7 @@ if(grepl("Horizontal", layout)){
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
           axis.text.y = element_text(size = lsize),
-          strip.text.x = element_text(face= "bold", size = lsize),
+          strip.text.x = element_text(face= "bold", size = lsize, angle = 45),  # Rotate .ri labels (Kinase Family)
           legend.direction = "horizontal", 
           legend.position = "bottom") +
     facet_grid(.~panels, scales = "free_x", space = "free_x") 
@@ -95,7 +96,7 @@ if(grepl("Horizontal", layout)){
   w = stripwidth(df) + .5
   pdp = pdp + 
     theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
-          axis.text.y = element_text(size = lsize)) + 
+          axis.text.y = element_text(size = lsize)) +
     coord_flip() +
     facet_grid(panels~., scales = "free_y", space = "free") +
     theme(strip.text.y = element_text(angle = 0, face= "bold", size = lsize)) 
