@@ -78,8 +78,8 @@ df = ctx %>%
   getData()
 
 pdp =  df %>%
-  # mutate(clrVal = rescale(clrVal, to = clims, clip = TRUE),
-  #          .y = rescale(.y, to = slims, clip = TRUE)) %>% 
+  mutate(clrVal = pmax(clims[1], pmin(clrVal, clims[2])),
+         .y = pmax(slims[1], pmin(.y, slims[2]))) %>% 
   dots(clims, slims, dotSizeRange)
 
 if(grepl("Horizontal", layout)){
