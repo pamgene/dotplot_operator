@@ -79,9 +79,16 @@ sltitle = ctx$op.value("SizeLegendName", as.character, "Specificity")
 df = ctx %>% 
   getData()
 
-if (clims_automatic){
-  clims = c(quantile(df$clrVal, 0.25, na.rm = TRUE), 
-            quantile(df$clrVal, 0.75, na.rm = TRUE))
+if (clims_automatic) {
+  q2 <- quantile(df$clrVal, 0.2, na.rm = TRUE)
+  q8 <- quantile(df$clrVal, 0.8, na.rm = TRUE)
+  min_val <- min(df$clrVal, na.rm = TRUE)
+  max_val <- max(df$clrVal, na.rm = TRUE)
+  if (min_val < 0 && max_val > 0) {
+    clims = c(min_val, max_val)
+  } else {
+    clims = c(q2, q8)
+  }
 }
 
 if (slim_automatic){

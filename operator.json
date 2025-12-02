@@ -9,8 +9,7 @@
       "kind": "BooleanProperty",
       "name": "ColorLimitAutomatic",
       "defaultValue": true,
-      "description": "Automatically determine color limits based on 0.25 and 0.75 quantiles. If true, the ColorLowerLimit and ColorUpperLimit parameters will be ignored."
-    },  
+      "description": "Auto-set color limits - if true, the ColorLowerLimit and ColorUpperLimit parameters are ignored. If data contains both - and + values, the min and max is used as limits. If not, the limits are set to the 0.2 and 0.8 quantiles."},  
     {
       "kind": "DoubleProperty",
       "name": "ColorLowerLimit",
