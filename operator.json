@@ -5,7 +5,13 @@
   "authors": ["PamGene"],
   "urls": ["https://github.com/pamgene/dotplot_operator"],
   "properties": [
-       {
+    {
+      "kind": "BooleanProperty",
+      "name": "ColorLimitAutomatic",
+      "defaultValue": true,
+      "description": "Automatically determine color limits based on 0.25 and 0.75 quantiles. If true, the ColorLowerLimit and ColorUpperLimit parameters will be ignored."
+    },  
+    {
       "kind": "DoubleProperty",
       "name": "ColorLowerLimit",
       "defaultValue": -0.5,
@@ -16,6 +22,12 @@
       "name": "ColorUpperLimit",
       "defaultValue": 0.5,
       "description": "Upper limit for mapping to the color scale of the dots"
+    },
+    {
+      "kind": "BooleanProperty",
+      "name": "SizeLimitAutomatic",
+      "defaultValue": true,
+      "description": "Automatically determine upper size limit based on 0.75 quantiles. If true, the SizeLowerLimit and SizeUpperLimit parameters will be ignored."
     },
     {
       "kind": "DoubleProperty",
@@ -33,7 +45,7 @@
       "kind": "DoubleProperty",
       "name": "MinDotSize",
       "defaultValue": 0,
-      "description": "Upper limit for mapping to the size scale of the dots"
+      "description": "Minimum dot size"
     },
     {
       "kind": "DoubleProperty",

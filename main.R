@@ -67,7 +67,9 @@ stripwidth = function(x, bw = 1){
 
 layout = ctx$op.value("Layout", as.character, "Horizontal") 
 lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
+clims_automatic = ctx$op.value("ColorLimitAutomatic", as.logical, TRUE)
 clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
+slim_automatic = ctx$op.value("SizeLimitAutomatic", as.logical, TRUE)
 slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
 dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDotSize", as.numeric, 4))
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
@@ -76,6 +78,15 @@ sltitle = ctx$op.value("SizeLegendName", as.character, "Specificity")
             
 df = ctx %>% 
   getData()
+
+if (clims_automatic){
+  clims = c(quantile(df$clrVal, 0.25, na.rm = TRUE), 
+            quantile(df$clrVal, 0.75, na.rm = TRUE))
+}
+
+if (slim_automatic){
+  slims = c(0, quantile(df$.y, 0.75, na.rm = TRUE))
+}
 
 pdp =  df %>%
   mutate(clrVal = pmax(clims[1], pmin(clrVal, clims[2])),
