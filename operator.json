@@ -69,7 +69,7 @@
     {
       "kind": "StringProperty",
       "name": "ColorLegendName",
-      "defaultValue": "Change",
+      "defaultValue": "Fold Change",
       "description": "Title for color legend"
     }
   ]

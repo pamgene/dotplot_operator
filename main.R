@@ -72,7 +72,7 @@ slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpper
 dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDotSize", as.numeric, 4))
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Fold Change")
-sltitle = ctx$op.value("Size LegendName", as.character, "Specificity")
+sltitle = ctx$op.value("SizeLegendName", as.character, "Specificity")
             
 df = ctx %>% 
   getData()
