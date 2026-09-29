@@ -23,12 +23,14 @@ Input parameters|.
 ---|---
 ColorLowerLimit|Lower limit for color scale of the dots(default: -0.5)
 ColorUpperLimit|Upper limit for color scale of the dots (default: 0.5)
+ColorPalette|Diverging color palette, white at 0: `divergent_blue-red` (default) or `divergent_green-purple`
 SizeLowerLimit|Lower limit for mapping to the size scale of the dots (default: 0)
 SizeUpperLimit|Upper limit for mapping to the size scale of the dots(default: 2)
 MinDotSize|Minimum dot size (SizeLowerLimit is mapped to this value, default: 0)
 MaxDotSize|Maximum dot size (SizeUpperLimit is mapped to this value, default 6)
 PlotSize|Size of longer plot size
-LabelFontSize|Font size for axis labels
+LabelFontSize|Font size for axis labels (default: 10)
+LabelFontBold|Bold axis labels (default: true)
 SizeLegendName|Title for the size legend
 ColorLegendName|Title for teh color legend
 

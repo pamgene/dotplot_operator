@@ -23,6 +23,13 @@
       "description": "Upper limit for mapping to the color scale of the dots"
     },
     {
+      "kind": "EnumeratedProperty",
+      "name": "ColorPalette",
+      "defaultValue": "divergent_blue-red",
+      "description": "Color palette for the dots; white is always at 0",
+      "values": ["divergent_blue-red", "divergent_green-purple"]
+    },
+    {
       "kind": "BooleanProperty",
       "name": "SizeLimitAutomatic",
       "defaultValue": true,
@@ -68,8 +75,14 @@
     {
       "kind": "DoubleProperty",
       "name": "LabelFontSize",
-      "defaultValue": 6,
+      "defaultValue": 10,
       "description": "Font size for axis labels"
+    },
+    {
+      "kind": "BooleanProperty",
+      "name": "LabelFontBold",
+      "defaultValue": true,
+      "description": "Bold axis labels"
     },
     {
       "kind": "StringProperty",

@@ -39,6 +39,18 @@ getData = function(con){
     arrange(.ci) # Arrange by .ci
 }
 
+colourScale = function(palette, clrLimits){
+  if (palette == "divergent_green-purple") {
+    # white fixed at 0, same midpoint behaviour as scale_colour_gradient2
+    scale_colour_gradientn(colours = c("#4dbd05", "#94d769", "white", "#b98dba", "#9b45a3"),
+                           values = c(0, 0.25, 0.5, 0.75, 1),
+                           rescaler = function(x, ...) scales::rescale_mid(x, mid = 0),
+                           limits = clrLimits)
+  } else {
+    scale_colour_gradient2(low = "darkblue", high = "darkred", limits = clrLimits)
+  }
+}
+
 dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6)){
   x %>% 
     ggplot(aes(x = .x, 
@@ -48,7 +60,7 @@ dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6
     geom_point() + 
     xlab("")  +
     ylab("") + 
-    scale_colour_gradient2(low = "darkblue", high = "darkred",limits = clrLimits) + 
+    colourScale(palette, clrLimits) +
     scale_size_continuous(limits = szLimits,  range = szRange) + 
     theme_minimal() +
     guides(colour = guide_colorbar(title =cltitle ), 
@@ -66,7 +78,8 @@ stripwidth = function(x, bw = 1){
 }
 
 layout = ctx$op.value("Layout", as.character, "Horizontal") 
-lsize = ctx$op.value("LabelFontSize", as.numeric, 6)
+lsize = ctx$op.value("LabelFontSize", as.numeric, 10)
+lface = if (ctx$op.value("LabelFontBold", as.logical, TRUE)) "bold" else "plain"
 clims_automatic = ctx$op.value("ColorLimitAutomatic", as.logical, TRUE)
 clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
 slim_automatic = ctx$op.value("SizeLimitAutomatic", as.logical, TRUE)
@@ -75,6 +88,7 @@ dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDot
 pheight = ctx$op.value("PlotSize", as.numeric, 7)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Fold Change")
 sltitle = ctx$op.value("SizeLegendName", as.character, "Specificity")
+palette = ctx$op.value("ColorPalette", as.character, "divergent_blue-red")
             
 df = ctx %>% 
   getData()
@@ -103,8 +117,8 @@ pdp =  df %>%
 if(grepl("Horizontal", layout)){
   h = stripwidth(df)
   pdp = pdp + 
-    theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
-          axis.text.y = element_text(size = lsize),
+    theme(axis.text.x = element_text(angle = 45, size = lsize, face = lface, hjust = 1),
+          axis.text.y = element_text(size = lsize, face = lface),
           strip.text.x = element_text(face= "bold", size = lsize, angle = 45),  # Rotate .ri labels (Kinase Family)
           legend.direction = "horizontal", 
           legend.position = "bottom") +
@@ -113,8 +127,8 @@ if(grepl("Horizontal", layout)){
 } else if(grepl("Vertical", layout)){
   w = stripwidth(df) + .5
   pdp = pdp + 
-    theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
-          axis.text.y = element_text(size = lsize)) +
+    theme(axis.text.x = element_text(angle = 45, size = lsize, face = lface, hjust = 1),
+          axis.text.y = element_text(size = lsize, face = lface)) +
     coord_flip() +
     facet_grid(panels~., scales = "free_y", space = "free") +
     theme(strip.text.y = element_text(angle = 0, face= "bold", size = lsize)) 
@@ -122,8 +136,8 @@ if(grepl("Horizontal", layout)){
 } else if(grepl("Wrap", layout)){
   pdp = pdp + 
     facet_wrap(~panels, scales = "free_x") +
-    theme(axis.text.x = element_text(angle = 45, size = lsize, hjust = 1),
-          axis.text.y = element_text(size = lsize),
+    theme(axis.text.x = element_text(angle = 45, size = lsize, face = lface, hjust = 1),
+          axis.text.y = element_text(size = lsize, face = lface),
           strip.text.x = element_text(face= "bold")) 
   plot_file <- tim::save_plot(pdp, bg = "white")
 }
