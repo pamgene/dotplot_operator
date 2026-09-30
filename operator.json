@@ -4,6 +4,7 @@
   "tags": ["Knowledge Integration"],
   "authors": ["PamGene"],
   "urls": ["https://github.com/pamgene/dotplot_operator"],
+  "container": "ghcr.io/pamgene/dotplot_operator",
   "properties": [
     {
       "kind": "BooleanProperty",
@@ -76,7 +77,19 @@
       "kind": "DoubleProperty",
       "name": "LabelFontSize",
       "defaultValue": 10,
-      "description": "Font size for axis labels"
+      "description": "Font size for the dot labels (e.g. kinase names) and the legend text"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "ComparisonFontsize",
+      "defaultValue": 10,
+      "description": "Font size for the comparison labels (crosstab columns)"
+    },
+    {
+      "kind": "DoubleProperty",
+      "name": "GroupFontsize",
+      "defaultValue": 6,
+      "description": "Font size for the group labels, e.g. kinase families (crosstab rows)"
     },
     {
       "kind": "BooleanProperty",
