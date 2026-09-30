@@ -10,7 +10,7 @@
       "kind": "BooleanProperty",
       "name": "ColorLimitAutomatic",
       "defaultValue": true,
-      "description": "Auto-set color limits - if true, the ColorLowerLimit and ColorUpperLimit parameters are ignored. If data contains both - and + values, the min and max is used as limits. If not, the limits are set to the 0.2 and 0.8 quantiles."},  
+      "description": "Auto-set color limits - if true, the ColorLowerLimit and ColorUpperLimit parameters are ignored and the min and max of the color values are used as limits. White is always at 0."},
     {
       "kind": "DoubleProperty",
       "name": "ColorLowerLimit",
@@ -34,12 +34,12 @@
       "kind": "BooleanProperty",
       "name": "SizeLimitAutomatic",
       "defaultValue": true,
-      "description": "Automatically determine upper size limit based on 0.75 quantiles. If true, the SizeLowerLimit and SizeUpperLimit parameters will be ignored."
+      "description": "Auto-set size limits - if true, the SizeLowerLimit and SizeUpperLimit parameters are ignored and the min and max of the size values are used as limits."
     },
     {
       "kind": "DoubleProperty",
       "name": "SizeLowerLimit",
-      "defaultValue": 0,
+      "defaultValue": 0.5,
       "description": "Lower limit for mapping to the size scale of the dots"
     },
     {
@@ -51,7 +51,7 @@
     {
       "kind": "DoubleProperty",
       "name": "MinDotSize",
-      "defaultValue": 0,
+      "defaultValue": 2,
       "description": "Minimum dot size"
     },
     {

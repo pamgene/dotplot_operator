@@ -57,6 +57,13 @@ colourScale = function(palette, clrLimits){
   }
 }
 
+# legend always shows the limits; pretty breaks in between unless too close to them
+minMaxBreaks = function(lims) {
+  inner = scales::extended_breaks()(lims)
+  inner = inner[inner > lims[1] + 0.1 * diff(lims) & inner < lims[2] - 0.1 * diff(lims)]
+  sort(c(lims, inner))
+}
+
 dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6)){
   x %>% 
     ggplot(aes(x = .x, 
@@ -67,7 +74,8 @@ dots = function(x, clrLimits = c(-0.5, 0.5), szLimits = c(0, 2), szRange = c(0,6
     xlab("")  +
     ylab("") + 
     colourScale(palette, clrLimits) +
-    scale_size_continuous(limits = szLimits,  range = szRange) + 
+    scale_size_continuous(limits = szLimits,  range = szRange,
+                          breaks = minMaxBreaks, labels = function(x) as.character(round(x, 2))) +
     theme_minimal() +
     guides(colour = guide_colorbar(title =cltitle ), 
            size = guide_legend(title = sltitle) )+ 
@@ -91,8 +99,8 @@ lface = if (ctx$op.value("LabelFontBold", as.logical, TRUE)) "bold" else "plain"
 clims_automatic = ctx$op.value("ColorLimitAutomatic", as.logical, TRUE)
 clims = c(ctx$op.value("ColorLowerLimit", as.numeric, -0.5), ctx$op.value("ColorUpperLimit", as.numeric, 0.5))
 slim_automatic = ctx$op.value("SizeLimitAutomatic", as.logical, TRUE)
-slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0), ctx$op.value("SizeUpperLimit", as.numeric, 2))
-dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 0), ctx$op.value("MaxDotSize", as.numeric, 6))
+slims = c(ctx$op.value("SizeLowerLimit", as.numeric, 0.5), ctx$op.value("SizeUpperLimit", as.numeric, 2))
+dotSizeRange = c(ctx$op.value("MinDotSize", as.numeric, 2), ctx$op.value("MaxDotSize", as.numeric, 6))
 pheight = ctx$op.value("PlotSize", as.numeric, 12)
 cltitle = ctx$op.value("ColorLegendName", as.character, "Fold Change")
 sltitle = ctx$op.value("SizeLegendName", as.character, "Specificity")
@@ -102,19 +110,11 @@ df = ctx %>%
   getData()
 
 if (clims_automatic) {
-  q2 <- quantile(df$clrVal, 0.2, na.rm = TRUE)
-  q8 <- quantile(df$clrVal, 0.8, na.rm = TRUE)
-  min_val <- min(df$clrVal, na.rm = TRUE)
-  max_val <- max(df$clrVal, na.rm = TRUE)
-  if (min_val < 0 && max_val > 0) {
-    clims = c(min_val, max_val)
-  } else {
-    clims = c(q2, q8)
-  }
+  clims = range(df$clrVal, na.rm = TRUE)
 }
 
 if (slim_automatic){
-  slims = c(0, quantile(df$.y, 0.75, na.rm = TRUE))
+  slims = range(df$.y, na.rm = TRUE)
 }
 
 pdp =  df %>%
