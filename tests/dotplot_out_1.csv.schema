@@ -4,7 +4,7 @@
   "columns": [
     {
       "kind": "ColumnSchema",
-      "name": "ds0.filename",
+      "name": "filename",
       "type": "string",
       "nRows": 0,
       "size": -1,
@@ -18,7 +18,7 @@
     },
     {
       "kind": "ColumnSchema",
-      "name": "ds0.mimetype",
+      "name": "mimetype",
       "type": "string",
       "nRows": 0,
       "size": -1,

@@ -108,7 +108,7 @@
   "equalityMethod": "R2",
   "r2": 0.99,
   "skipColumns": [
-    "ds0.filename",
+    "filename",
     ".content"
   ]
 }
