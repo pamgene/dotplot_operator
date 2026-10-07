@@ -1,0 +1,114 @@
+{
+  "kind": "OperatorUnitTest",
+  "name": "dotplot_smoke_default_settings",
+  "namespace": "ds0",
+  "inputDataUri": "dotplot_input.csv",
+  "outputDataUri": [
+    "dotplot_out_1.csv"
+  ],
+  "columns": [
+    "Sgroup_contrast"
+  ],
+  "rows": [
+    "Kinase Family"
+  ],
+  "colors": [
+    "Kinase Statistic"
+  ],
+  "labels": [],
+  "yAxis": "Specificity Score",
+  "xAxis": "Kinase Name",
+  "propertyValues": [
+    {
+      "kind": "PropertyValue",
+      "name": "ColorLimitAutomatic",
+      "value": "true"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "ColorLowerLimit",
+      "value": "-0.5"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "ColorUpperLimit",
+      "value": "0.5"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "ColorPalette",
+      "value": "divergent_blue-red"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "SizeLimitAutomatic",
+      "value": "true"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "SizeLowerLimit",
+      "value": "0.5"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "SizeUpperLimit",
+      "value": "2"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "MinDotSize",
+      "value": "2"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "MaxDotSize",
+      "value": "6"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "Layout",
+      "value": "Horizontal"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "PlotSize",
+      "value": "12"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "LabelFontSize",
+      "value": "10"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "ComparisonFontsize",
+      "value": "10"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "GroupFontsize",
+      "value": "6"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "LabelFontBold",
+      "value": "true"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "SizeLegendName",
+      "value": "Specificity"
+    },
+    {
+      "kind": "PropertyValue",
+      "name": "ColorLegendName",
+      "value": "Fold Change"
+    }
+  ],
+  "equalityMethod": "R2",
+  "r2": 0.99,
+  "skipColumns": [
+    "ds0.filename",
+    ".content"
+  ]
+}

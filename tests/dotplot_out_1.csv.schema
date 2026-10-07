@@ -1,0 +1,48 @@
+{
+  "kind": "ComputedTableSchema",
+  "nRows": 2,
+  "columns": [
+    {
+      "kind": "ColumnSchema",
+      "name": "ds0.filename",
+      "type": "string",
+      "nRows": 0,
+      "size": -1,
+      "metaData": {
+        "kind": "ColumnSchemaMetaData",
+        "sort": [],
+        "ascending": true,
+        "quartiles": [],
+        "properties": []
+      }
+    },
+    {
+      "kind": "ColumnSchema",
+      "name": "ds0.mimetype",
+      "type": "string",
+      "nRows": 0,
+      "size": -1,
+      "metaData": {
+        "kind": "ColumnSchemaMetaData",
+        "sort": [],
+        "ascending": true,
+        "quartiles": [],
+        "properties": []
+      }
+    },
+    {
+      "kind": "ColumnSchema",
+      "name": ".content",
+      "type": "string",
+      "nRows": 0,
+      "size": -1,
+      "metaData": {
+        "kind": "ColumnSchemaMetaData",
+        "sort": [],
+        "ascending": true,
+        "quartiles": [],
+        "properties": []
+      }
+    }
+  ]
+}

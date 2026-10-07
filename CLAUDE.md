@@ -31,6 +31,20 @@ Crosstab mapping (as in the PamGene UKA workflows):
 
 The user may ask for extra cases while developing: add rows to `cases` in `dev/preview.R` (other properties go into `props`), and keep the standard 12. Open `dev/preview/index.html` for an overview, and look at the PNGs yourself before reporting.
 
+## Tercen unit test (`tests/`)
+
+Required by the Tercen library and the release install check (missing → `operator.run.test.not.found`, which also blacklists the UKA dotplot apps). It is a smoke test: Tercen installs the release, runs it on `tests/dotplot_input.csv` with every property pinned in `tests/test.json`, and checks that it returns the PNG relation (`ds0.filename`, `ds0.mimetype`, `.content`). `skipColumns` skips the random filename and the image bytes, so visual changes do not break it.
+
+Watch the row count: `file_to_tercen()` splits the PNG into 125 KB chunks, one row each. The test PNG is ~173 KB (2 rows); if a change makes it < 125 KB or > 250 KB, regenerate `tests/dotplot_out_1.csv`.
+
+Regenerate in Tercen Studio (project `dotplot_operator_dev`, workflow `dotplot dev`, step `Dotplot test`; built from `tests/dotplot_input.csv` with the test's crosstab and properties):
+
+```bash
+docker run --rm --network tercen_studio_tercen -v "$PWD:/src" --entrypoint Rscript dotplot_operator:dev -e 'options(tercen.workflowId="e4118104-a987-4128-b4a8-89499697ba83", tercen.stepId="5635b3cb-00ef-43cd-b877-07d55c16e709", tercen.username="admin", tercen.password="admin", tercen.serviceUri="http://tercen:5400/"); source("/src/main.R"); cat(ctx$task$id)'
+```
+
+Then export the task's output relation (`computedRelation.joinOperators[0].rightRelation.id`) with `tercenctl --context studio data export-csv -s <id> --filePath tests/dotplot_out_1.csv`, prefix `filename`/`mimetype` with `ds0.` (a real operator run namespaces them; dev mode does not), and update `nRows` in the `.schema` sidecar. If the studio step's property values change, keep them identical to `tests/test.json`.
+
 ## Release
 
 - Push to `main`: CI builds `ghcr.io/pamgene/dotplot_operator` tagged with the branch name and commit SHA.

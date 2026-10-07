@@ -11,3 +11,4 @@ workspace.R
 dev
 example_uka_input_*.csv
 CLAUDE.md
+tests
